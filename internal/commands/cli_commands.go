@@ -22,7 +22,7 @@ type PokedexConfig struct {
 	UserPokedex      map[string]pokeapi.PokemonDetailsResponse
 }
 
-func CommandHelp(pokedexConfig *PokedexConfig, params []string) error {
+func CommandHelp(pokedexConfig *PokedexConfig, _ []string) error {
 	fmt.Println(
 		`Welcome to the Pokedex!
 Usage:	
@@ -34,13 +34,13 @@ Usage:
 	return nil
 }
 
-func CommandExit(pokedexConfig *PokedexConfig, params []string) error {
+func CommandExit(_ *PokedexConfig, _ []string) error {
 	_, err := fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 	return err
 }
 
-func CommandMap(pokedexConfig *PokedexConfig, params []string) error {
+func CommandMap(pokedexConfig *PokedexConfig, _ []string) error {
 	locAreas, err := pokeapi.GetLocationAreas(pokedexConfig.Next, pokedexConfig.PokeDexCache)
 	if err != nil {
 		return err
@@ -53,7 +53,7 @@ func CommandMap(pokedexConfig *PokedexConfig, params []string) error {
 	return nil
 }
 
-func CommandMapb(pokedexConfig *PokedexConfig, params []string) error {
+func CommandMapb(pokedexConfig *PokedexConfig, _ []string) error {
 	locAreas, err := pokeapi.GetLocationAreas(pokedexConfig.Previous, pokedexConfig.PokeDexCache)
 	if err != nil {
 		return err
@@ -67,7 +67,7 @@ func CommandMapb(pokedexConfig *PokedexConfig, params []string) error {
 	return nil
 }
 
-func CommandExplore(pokedexConfig *PokedexConfig, params []string) error {
+func CommandExplore(_ *PokedexConfig, params []string) error {
 	if len(params) == 0 {
 		fmt.Println("Please provide a location you want to explore")
 		return nil
@@ -137,10 +137,10 @@ func CommandInspect(pokedexConfig *PokedexConfig, params []string) error {
 	return nil
 }
 
-func CommandPokedex(pokedexConfig *PokedexConfig, params []string) error {
+func CommandPokedex(pokedexConfig *PokedexConfig, _ []string) error {
 	fmt.Println("Your Pokedex:")
 
-	for k, _ := range pokedexConfig.UserPokedex {
+	for k := range pokedexConfig.UserPokedex {
 		fmt.Printf("  - %v\n", k)
 	}
 
